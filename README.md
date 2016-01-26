@@ -10,7 +10,8 @@ The face detector has a training and a test stages. The main scripts for trainin
 
 Development strategy:
 
-- We will use the training stage of OpenCV and import the classifier
+- We will use the training stage of OpenCV and import the classifier in [4] (> 30k lines). For that, we need code to import the XML file into Octave / Matlab. Note that Mathworks has support to OpenCV [5] but we will not use it for the sake of compatibility with Octave. This strategy will force us to use the same data structures as OpenCV but will allow to debug our code using OpenCV as a reference.
+- We first concentrate on the test stage, with the following guidelines: 1) use a webcam video capture software to obtain a screenshot as an image file, 2) read the image from Octave / Matlab, convert it to gray scale and show it, 3) calculate the Integral Image, 4) for all required resolutions, calculate the needed parameters and invoke the classifier, 5) draw the rectangles according to the classifier's decisions.
 
 <b>References:</b>
 
@@ -21,3 +22,5 @@ Development strategy:
 [3] http://docs.opencv.org/master/d7/d8b/tutorial_py_face_detection.html
 
 [4] https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
+
+[5] http://www.mathworks.com/help/vision/ug/opencv-interface.html
