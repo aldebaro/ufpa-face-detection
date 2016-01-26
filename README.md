@@ -8,9 +8,16 @@ Convention: all files (scripts and functions) start with the prefix ufd_ (UFPA f
 
 The face detector has a training and a test stages. The main scripts for training and testing are: ufd_train and ufd_test, respectively.
 
-References:
+Development strategy:
+
+- We will use the training stage of OpenCV and import the classifier
+
+<b>References:</b>
+
 [1] Robust Real-Time Face Detection, Paul Viola and Michael Jones, International Journal of Computer Vision 57(2), 137–154, 2004.
 
 [2] http://www.mathworks.com/help/vision/ref/vision.cascadeobjectdetector-class.html
 
 [3] http://docs.opencv.org/master/d7/d8b/tutorial_py_face_detection.html
+
+[4] https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
