@@ -8,6 +8,8 @@
 %a good reference about the features is:
 %http://www.lienhart.de/Prof._Dr._Rainer_Lienhart/Source_Code_files/ICIP2002.pdf 
 %(this provides more details about how the Haar features can be calculated)
+%Note that the XML version adopted by this software seems different than the
+%one used in the latest OpenCV version.
 
 %% 1) Define file names
 %fileName = 'C:/ak/Works/2016_opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml';
