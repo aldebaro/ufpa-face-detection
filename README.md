@@ -24,3 +24,13 @@ Development strategy:
 [4] https://github.com/Itseez/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml
 
 [5] http://www.mathworks.com/help/vision/ug/opencv-interface.html
+
+[6] http://www.lienhart.de/Prof._Dr._Rainer_Lienhart/Source_Code_files/ICIP2002.pdf
+
+<b>References about face detector using OpenCV:</b>
+
+- How to build OpenCV on Windows: http://www.anlak.com/2013/02/build-debug-opencv-vs2010.html
+
+- http://note.sonots.com/SciSoftware/haartraining/document.html
+
+- http://www.cs.princeton.edu/courses/archive/fall08/cos429/CourseMaterials/Precept1/facedetect.pdf
