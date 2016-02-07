@@ -25,11 +25,17 @@ Development strategy:
 
 [5] http://www.mathworks.com/help/vision/ug/opencv-interface.html
 
-[6] http://www.lienhart.de/Prof._Dr._Rainer_Lienhart/Source_Code_files/ICIP2002.pdf
+[6] http://www.lienhart.de/Prof._Dr._Rainer_Lienhart/Source_Code_files/ICIP2002.pdf (this provides more details about how the Haar features can be calculated)
+
+[7] http://www.mathworks.com/matlabcentral/fileexchange/29437-viola-jones-object-detection (this set of Matlab scripts is a very good starting point to this project: it parses an XML (it seems the format is the old one), implements the classifier and outputs the results)
+
+[8] There are other related codes at "Fileexchange": http://www.mathworks.com/matlabcentral/fileexchange/?search_submit=fileexchange&query=Viola+Jones+Object+Detection&term=Viola+Jones+Object+Detection
 
 <b>References about face detector using OpenCV:</b>
 
 - How to build OpenCV on Windows: http://www.anlak.com/2013/02/build-debug-opencv-vs2010.html
+- 
+<b>References about training and testing a face detector using OpenCV, but not modifying its code (just invoking command line tools):</b>
 
 - http://note.sonots.com/SciSoftware/haartraining/document.html
 
