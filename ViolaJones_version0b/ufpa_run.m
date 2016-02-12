@@ -18,16 +18,20 @@
 fileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\HaarCascades\haarcascade_frontalface_alt.xml';
 
 %imageFileName = 'C:/ak/Works/2016_opencv/build3/bin/Debug/photo.jpg';
-imageFileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\Images\1.jpg';
-%imageFileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\Images\2.jpg';
+%imageFileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\Images\1.jpg';
+imageFileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\Images\2.jpg';
 
-j=find(fileName=='.'); if(~isempty(j)), fileName=fileName(1:j-1); end
+j=find(fileName=='.'); 
+if(~isempty(j))
+    j=j(end);
+    fileName=fileName(1:j-1); 
+end
 fileNameHaarCascade = [fileName '.mat'];
 %fileNameHaarCascade = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\HaarCascades\haarcascade_frontalface_alt.mat';
 
 %% 2) Convert XML into MAT using the code at
 %http://www.mathworks.com/matlabcentral/fileexchange/29437-viola-jones-object-detection/
-if 1 %disable if already converted, to save computing time
+if 0 %disable if already converted, to save computing time
     ConvertHaarcasadeXMLOpenCV(fileName)
 end
 
