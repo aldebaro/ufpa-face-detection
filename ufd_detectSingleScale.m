@@ -16,31 +16,31 @@ Variance = GetSumRect(IntegralImages.ii2,x,y,w,h)*InverseArea - (average.^2);
 Variance(Variance<1) = 1;
 DeviationStandard = sqrt(Variance);
 
-%Os "haarcarscade" contém uma série de arvores de classificadores que serão executados um a um. Caso a coordenada fornecida não passe do classificador, ela é eliminada. Caso ela seja aceita pelo classificador será passada para o próximo classificador.
+%Os the "haarcarscade" contains a row of classifier-trees that are executed step by step. If a coordinate doesn't pass the classifier threshold it is removed, otherwise it goes into the next classifier.
 
-%Laço que percorrerá cada tipo de classificador
-for i_stage = 1:length(HaarCasade.stages) %i_stage receberá o indice de cada classe de classificador
-    stage = HaarCasade.stages(i_stage); %stage recebe a classe de classificador referente ao indice i_stage
-    Trees=stage.trees; %Acessa a árvore da classe de classificadores do elemento
-    StageSum = zeros(size(x)); %Cria uma matriz de zeros com tamanho igual ao de x (size talvez devesse ser (x,y))
+%Loop through all classifier stages
+for i_stage = 1:length(HaarCasade.stages) %i_stage will receive the index of each classifier class
+    stage = HaarCasade.stages(i_stage); % stage receives the classifier class regarding the index i_stage
+    Trees=stage.trees; % Access the classifiers tree class of the element 
+    StageSum = zeros(size(x)); % Create a matrix of zeros with length equal to the x (size should perhaps be (x, y))
 
-    %Laço que percorre a árvore de classificadores
-    for i_tree=1:length(Trees) %i_tree receberá o índice de cada árvore acessada
-        Tree = Trees(i_tree).value; %Tree recebe o valor da árvore especificada pelo i_tree
-        % Executando o classificador
-        TreeSum=TreeObjectDetection(zeros(size(x)),Tree,Scale,x,y,IntegralImages.ii,StandardDeviation,InverseArea); %TreeSum armazena da execução do classificador
-        StageSum = StageSum + TreeSum; %Soma as duas matrizes
+    % Loop through a classifier tree
+    for i_tree=1:length(Trees) %i_tree will receive each accessed tree index
+        Tree = Trees(i_tree).value; %Tree receive the value of the tree specified by the i_tree
+        % Executing the classifier
+        TreeSum=TreeObjectDetection(zeros(size(x)),Tree,Scale,x,y,IntegralImages.ii,StandardDeviation,InverseArea); %TreeSum stores the execution of the classifier
+        StageSum = StageSum + TreeSum; % Sum of two matrices
     end
 
-    check=StageSum < stage.stage_threshold; %A variável Check vai indicar se StageSum é menor que o valor minimo determinado pelo classificador
+    check=StageSum < stage.stage_threshold; %The variable check indicates if StageSum is smaller than the minimum value determined by the classifier
     
-    x=x(~check); %Remove as coordenadas cujo valores são menores que o valor minimo determinado pelo classificador
+    x=x(~check); %Remove the coordinates which values are less than the minimum value determined by the classifier
 
-    if(isempty(x)) %Se nenhuma coordenada satisfez o valor minimo determinado pelo classificador então o laço é interrompido, pois nenhum resquicio de objeto foi detectado
-    	i_stage = length(HaarCasade.stages)+1; %i_stage recebe um valor que encerra o laço
+    if(isempty(x)) %If no coordinated satisfies the minimum value determined by the classifier then the loop is broken because no trace of object was detected
+    	i_stage = length(HaarCasade.stages)+1; %i_stage receive the value that closes the loop
     end 
 
-    y=y(~check);%Remove as coordenadas cujo valores são menores que o valor minimo determinado pelo classificador
+    y=y(~check);%Remove the coordinates which values are less than the minimum value determined by the classifier
 
-    StandardDeviation=StandardDeviation(~check); %Remove os desvios padrões cuja os valores das coordenadas são menores que o valor minimo determinado pelo classificador
+    StandardDeviation=StandardDeviation(~check); %Remove the standard deviations which coordinate values are smaller than the minimum value determined by the classifier
 end
