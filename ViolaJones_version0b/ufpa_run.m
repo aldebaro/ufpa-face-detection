@@ -18,6 +18,8 @@
 fileName = 'HaarCascades\haarcascade_frontalface_alt.xml';
 imageFileName = 'Images\1.jpg';
 %imageFileName = 'Images\2.jpg';
+%imageFileName = 'C:/ak/Works/2016_opencv/build3/bin/Debug/photo.jpg';
+%imageFileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\Images\1.jpg';
 
 j=find(fileName=='.'); 
 if(~isempty(j))
