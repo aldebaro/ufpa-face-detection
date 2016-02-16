@@ -11,7 +11,7 @@ function HaarCascade=GetHaarCasade(FilenameHaarcasade)
 
 
 load(FilenameHaarcasade);
-f=fields(opencv_storage);
+f=fieldnames(opencv_storage);
 HaarCascade=opencv_storage.(f{1});
 
 % Add all missing data-fields
