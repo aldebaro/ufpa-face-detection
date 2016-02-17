@@ -19,7 +19,7 @@ end
 %Creates a string with the name of the .xml, but with .mat extension
 fileNameHaarCascade = [fileName '.mat'];
 %check if converted file already exixts, if so, conversion won't be done
-if (~exist('/home/lucas/ufpa-face-detection/ViolaJones_version0b/HaarCascades/haarcascade_frontalface_alt.mat')) 
+if (~exist('HaarCascades/haarcascade_frontalface_alt.mat')) 
     ufd_convertXML(fileName)
 end
 %stores the image in a matrix called 'I'
