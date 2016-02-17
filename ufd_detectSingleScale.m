@@ -30,7 +30,7 @@ while (i_stage<=length(HaarCasade.stages))
         Tree = Trees(i_tree).value; %Tree receive the value of the tree specified by the i_tree
         % Executing the classifier
         TreeSum=TreeObjectDetection(zeros(size(x)),Tree,Scale,x,y,IntegralImages.ii,StandardDeviation,InverseArea); %TreeSum stores the execution of the classifier
-        StageSum = StageSum + TreeSum; % Sum of two matrices
+        StageSum += TreeSum; % Sum of two matrices
     end
 
     check=StageSum < stage.stage_threshold; %The variable check indicates if StageSum is smaller than the minimum value determined by the classifier
@@ -38,7 +38,7 @@ while (i_stage<=length(HaarCasade.stages))
     x=x(~check); %Remove the coordinates which values are less than the minimum value determined by the classifier
 
     if(isempty(x)) %If no coordinated satisfies the minimum value determined by the classifier then the loop is broken because no trace of object was detected
-    	i_stage = length(HaarCasade.stages)*9; %i_stage receive the value that closes the loop
+    	i_stage = length(HaarCasade.stages)+1; %i_stage receive the value that closes the loop
     end 
 
     y=y(~check);%Remove the coordinates which values are less than the minimum value determined by the classifier
