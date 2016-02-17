@@ -20,8 +20,8 @@ StandardDeviation = sqrt(Variance);
 
 i_stage = 1; %Control variable for loop into classifier stages
 %Loop through all classifier stages
-while (i_stage<=length(HaarCasade.stages))
-    stage = HaarCasade.stages(i_stage); % stage receives the classifier class regarding the index i_stage
+while (i_stage<=length(HaarCascade.stages))
+    stage = HaarCascade.stages(i_stage); % stage receives the classifier class regarding the index i_stage
     Trees=stage.trees; % Access the classifiers tree class of the element 
     StageSum = zeros(size(x)); % Create a matrix of zeros with length equal to the x (size should perhaps be (x, y))
 
@@ -38,7 +38,7 @@ while (i_stage<=length(HaarCasade.stages))
     x=x(~check); %Remove the coordinates which values are less than the minimum value determined by the classifier
 
     if(isempty(x)) %If no coordinated satisfies the minimum value determined by the classifier then the loop is broken because no trace of object was detected
-    	i_stage = length(HaarCasade.stages)+1; %i_stage receive the value that closes the loop
+    	i_stage = length(HaarCascade.stages)+1; %i_stage receive the value that closes the loop
     end 
 
     y=y(~check);%Remove the coordinates which values are less than the minimum value determined by the classifier
