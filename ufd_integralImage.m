@@ -28,5 +28,15 @@ function I=ufd_integralImage(X)
     %        endif
     %    endfor
     % endfor
+
+    % Add a row and a column of zeros before and above the begin of the matrix
+    % First concat the column of zeros to the matrix
+    I = [zeros(rows(I), 1) I];
+
+    % Than the row
+    I = [zeros(1, columns(I)); I];
+    
+    % If we where to use the function padarray from the image package
+    % I = padarray(I, [1 1], 'pre')
     
 endfunction

@@ -15,11 +15,11 @@
 %XML with new format, obtained from the latest OpenCV:
 %fileName = 'C:/ak/Works/2016_opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml';
 %XML with old format, from fileexchange:
-fileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\HaarCascades\haarcascade_frontalface_alt.xml';
-
+fileName = ['HaarCascades', filesep(), 'haarcascade_frontalface_alt.xml'];
+imageFileName = ['Images', filesep(), '1.jpg'];
+%imageFileName = 'Images\2.jpg';
 %imageFileName = 'C:/ak/Works/2016_opencv/build3/bin/Debug/photo.jpg';
 %imageFileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\Images\1.jpg';
-imageFileName = 'C:\ak\Works\2016_opencv\ViolaJones_version0b\Images\2.jpg';
 
 j=find(fileName=='.'); 
 if(~isempty(j))
