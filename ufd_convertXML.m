@@ -1,6 +1,5 @@
 function ufd_convertXML(filename)
-% This function converts the OpenCV XML file to a MATLAB data file with the same
-% information inside.
+% This function converts the OpenCV XML file to a MATLAB data file with the same information inside.
 % (Based on code by D. Kroon)
 
 %Example
@@ -10,7 +9,7 @@ function ufd_convertXML(filename)
 %
 %Function is written by Bruno Ricardo Scherer based in D.Kroon University of 16/02/2016.
 
-%Verificando e removendo o final do nome do arquivo
+%Checking and removing the end of the filename
 
 %Array of position of dotes
 j = find(filename=='.');
@@ -22,11 +21,11 @@ end
 
 %Open the data .XML mode read
 fid = fopen([filename '.xml'], 'r');
-c = fread(fid, inf, 'char=>char')';  %this line is very funny
+c = fread(fid, inf, 'char=>char')';  %Be careful with the syntax . Matrix transposed
 fclose(fid);
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%xml conversion matla / octave%%%%%%%%%%%%%%%%%%%%%%%%%
 c(c==13)=[];
 c(c==10)=[];
 fl = regexp(c, '<', 'split');
@@ -104,7 +103,7 @@ for i=2:length(fl)
     end
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%End%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %Close the file "fid"
