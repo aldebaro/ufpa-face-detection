@@ -3,13 +3,13 @@
 
 %starting the script, we'll need the path  for the source image
 %user may need to adapt path to curret OS 
-imageFileName = 'Images/2.jpg';
+imageFileName = ['Images', filesep(), '2.jpg'];
 
 %And now add the path for the Haar features
 
 %in Dr. Kroon's code the xml was removed, but since undestanding
 %its conversion to .MAT is one of the points of the project, I'm going to include it
-fileName = 'HaarCascades/haarcascade_frontalface_alt.xml';
+fileName = ['HaarCascades', filesep(), 'haarcascade_frontalface_alt.xml'];
 %name treatment for the .xml file
 j=find(fileName=='.'); 
 if(~isempty(j))
@@ -19,7 +19,7 @@ end
 %Creates a string with the name of the .xml, but with .mat extension
 fileNameHaarCascade = [fileName '.mat'];
 %check if converted file already exixts, if so, conversion won't be done
-if (~exist('HaarCascades/haarcascade_frontalface_alt.mat')) 
+if (~exist(['HaarCascades', filesep(), 'haarcascade_frontalface_alt.xml'])) 
     ufd_convertXML(fileName)
 end
 %stores the image in a matrix called 'I'
