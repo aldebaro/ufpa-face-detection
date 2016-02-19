@@ -7,10 +7,10 @@ function [x,y] = ufd_detectSingleScale(x, y, Scale, IntegralImage, w, h, HaarCas
 InverseArea = 1/(w*h);
 
 %Calculated the average in relation sum of rectangles(utilizing integral image) matrix and matrix area
-average = GetSumRect(IntegralImage.ii,x,y,w,h)*InverseArea;
+average = ufd_sumRect(IntegralImage.ii,x,y,w,h)*InverseArea;
 
 %Calculation of variance in each sub-windows of the classifiers
-Variance = GetSumRect(IntegralImage.ii2,x,y,w,h)*InverseArea - (average.^2);
+Variance = ufd_sumRect(IntegralImage.ii2,x,y,w,h)*InverseArea - (average.^2);
 
 %Using a Variance to calculate the standard deviation
 Variance(Variance<1) = 1;
@@ -29,7 +29,7 @@ while (i_stage<=length(HaarCascades.stages))
     for i_tree=1:length(Trees) %i_tree will receive each accessed tree index
         Tree = Trees(i_tree).value; %Tree receive the value of the tree specified by the i_tree
         % Executing the classifier
-        TreeSum=TreeObjectDetection(zeros(size(x)),Tree,Scale,x,y,IntegralImage.ii,StandardDeviation,InverseArea); %TreeSum stores the execution of the classifier
+        TreeSum=ufd_treeDetect(zeros(size(x)),Tree,Scale,x,y,IntegralImage.ii,StandardDeviation,InverseArea); %TreeSum stores the execution of the classifier
         StageSum += TreeSum; % Sum of two matrices
     end
 

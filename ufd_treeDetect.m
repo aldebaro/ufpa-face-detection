@@ -1,6 +1,7 @@
-function s=ufd_treeDetect(Node, Tree, Scale, x, y, integralImage, stddev, inverseArea)
+function Tree_sum=ufd_treeDetect(Node,Tree,Scale,x,y,integralImage,stddev,inverseArea)
 % This function performs object detection for one tree classifier.
 % (Based on code by D. Kroon)
+
 % Get the current haar-classifiers
 Leaf= Tree(Node+1,:);
 
@@ -13,7 +14,7 @@ for i_Rectangle = 1:3
     RectWidth = floor(Rectangle(:,3)*Scale);
     RectHeight = floor(Rectangle(:,4)*Scale);
     RectWeight = Rectangle(:,5);
-    r_sum = GetSumRect(IntegralImage,RectX,RectY,RectWidth,RectHeight).*RectWeight;
+    r_sum = ufd_sumRect(integralImage,RectX,RectY,RectWidth,RectHeight).*RectWeight;
     Rectangle_sum = Rectangle_sum + r_sum;
 end
 Rectangle_sum = Rectangle_sum * inverseArea;
@@ -41,5 +42,5 @@ Tree_sum(~check)=LeftValue(~check);
 % a value, but it is connected to another weak-classifier
 check=Node>-1;
 if(any(check))
-    Tree_sum(check)=TreeObjectDetection(Node(check),Tree,Scale,x(check),y(check),IntegralImage,stddev(check),inverseArea);
+    Tree_sum(check)=ufd_treeDetect(Node(check),Tree,Scale,x(check),y(check),integralImage,stddev(check),inverseArea);
 end
