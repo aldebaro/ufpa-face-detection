@@ -1,4 +1,4 @@
-function PixelSum=GetSumRect(IntegralImage,x,y,Width,Height)
+function PixelSum=ufd_sumRect(IntegralImage,x,y,Width,Height)
 % This function returns the sum of pixels inside a rectangle, using the integral
 % image structure to simplify calculations.
 % Inputs: integral image representation and a rectangle defined by the upperleft
