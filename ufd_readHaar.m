@@ -1,4 +1,4 @@
-function cascade=readHaar(haarFilename)
+function cascade=ufd_readHaar(haarFilename)
 % This function reads an MATLAB structure containing a Haar cascade classifier 
 % data.
 % Input: MATLAB filename
