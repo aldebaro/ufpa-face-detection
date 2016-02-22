@@ -1,4 +1,4 @@
-function integralImage=ufd_integralImage(X)
+function integralImage=ufd_integralImage(X, Options)
     % function I=ufd_integralImage(X)
     % Input: X is a matrix representing a gray-scale image
     % Output: I is the integral image of X
@@ -12,6 +12,18 @@ function integralImage=ufd_integralImage(X)
     % to make sure we don't lose data 
     X = im2double(X);
 
+    % added the resize option
+    if(Options.Resize)
+    if (size(X,2) > size(X,1)),
+        Ratio = size(X,2) / 384;
+    else
+        Ratio = size(X,1) / 384;
+    end
+        X = imresize(X, [size(X,1) size(X,2) ]/ Ratio);
+    else
+        Ratio=1;
+    end
+    
     % first the cumulative sum of the columns than another cumulative
     % sum nested for the rows with the new values to calculate the 
     % integral image (or the summed area table)
@@ -51,6 +63,6 @@ function integralImage=ufd_integralImage(X)
     % I = padarray(I, [1 1], 'pre')
     
     % returns a struct because every other function expects one
-    integralImage = struct('ii', I, 'ii2', I2, 'width', columns(X), 'height', rows(X), 'Ratio', 1);
+    integralImage = struct('ii', I, 'ii2', I2, 'width', columns(X), 'height', rows(X), 'Ratio', Ratio);
     
 endfunction
