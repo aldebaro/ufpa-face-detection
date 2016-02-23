@@ -3,7 +3,7 @@
 
 %starting the script, we'll need the path  for the source image
 %user may need to adapt path to curret OS 
-imageFileName = ['Images', filesep(), '2.jpg'];
+imageFileName = ['Images', filesep(), '1.jpg'];
 
 %And now add the path for the Haar features
 fileName = ['HaarCascades', filesep(), 'haarcascade_frontalface_alt.xml'];
@@ -31,13 +31,14 @@ haarCascade = ufd_readHaar(fileNameHaarCascade);
 %stores the image in a matrix called 'I'
 img = imread(imageFileName);
 
+% and some options
+defaultoptions=struct('ScaleUpdate',1/1.2,'Resize',true,'Verbose',true);
+
 % gets its integral image
-intImg = ufd_integralImage(img);
+intImg = ufd_integralImage(img, defaultoptions);
 
 %calls the function that will call other detection functions
 %passes as parameter the image and the .mat features file
-% and some options
-defaultoptions=struct('ScaleUpdate',1/1.2,'Resize',false,'Verbose',true);
 objects = ufd_multiScaleDetection(intImg, haarCascade, defaultoptions);
 
 %now the part missing is to print in the image the results of the detection
