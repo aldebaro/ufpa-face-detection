@@ -3,7 +3,7 @@
 
 %starting the script, we'll need the path  for the source image
 %user may need to adapt path to curret OS 
-imageFileName = ['Images', filesep(), '2.jpg'];
+imageFileName = ['Images', filesep(), '1.jpg'];
 
 %And now add the path for the Haar features
 
