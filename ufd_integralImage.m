@@ -52,17 +52,17 @@ function integralImage=ufd_integralImage(X, Options)
 
     % Add a row and a column of zeros before and above the begin of the matrix for both matrixes
     % First concat the column of zeros to the matrix
-    I = [zeros(rows(I), 1) I];
-    I2 = [zeros(rows(I2), 1) I2];
+    I = [zeros(size(I,1), 1) I];
+    I2 = [zeros(size(I2,1), 1) I2];
     
-    % Than the row
-    I = [zeros(1, columns(I)); I];
-    I2 = [zeros(1, columns(I2)); I2];
+    % Then the row
+    I = [zeros(1, size(I,2)); I];
+    I2 = [zeros(1, size(I2,2)); I2];
 
     % If we where to use the function padarray from the image package
     % I = padarray(I, [1 1], 'pre')
     
     % returns a struct because every other function expects one
-    integralImage = struct('ii', I, 'ii2', I2, 'width', columns(X), 'height', rows(X), 'Ratio', Ratio);
+    integralImage = struct('ii', I, 'ii2', I2, 'width', size(X,2), 'height', size(X,1), 'Ratio', Ratio);
     
-endfunction
+%endfunction

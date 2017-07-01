@@ -23,17 +23,17 @@ i_stage = 1; %Control variable for loop into classifier stages
 while (i_stage<=length(HaarCascades.stages))
     stage = HaarCascades.stages(i_stage); % stage receives the classifier class regarding the index i_stage
     Trees=stage.trees; % Access the classifiers tree class of the element 
-    StageSum = zeros(size(x)); % Create a matrix of zeros with length equal to the x (size should perhaps be (x, y))
+    StageSummation = zeros(size(x)); % Create a matrix of zeros with length equal to the x (size should perhaps be (x, y))
 
     % Loop through a classifier tree
     for i_tree=1:length(Trees) %i_tree will receive each accessed tree index
         Tree = Trees(i_tree).value; %Tree receive the value of the tree specified by the i_tree
         % Executing the classifier
         TreeSum=ufd_treeDetect(zeros(size(x)),Tree,Scale,x,y,IntegralImage.ii,StandardDeviation,InverseArea); %TreeSum stores the execution of the classifier
-        StageSum += TreeSum; % Sum of two matrices
+        StageSummation = StageSummation+TreeSum; % Sum of two matrices
     end
 
-    check=StageSum < stage.stage_threshold; %The variable check indicates if StageSum is smaller than the minimum value determined by the classifier
+    check=StageSummation < stage.stage_threshold; %The variable check indicates if StageSum is smaller than the minimum value determined by the classifier
     
     x=x(~check); %Remove the coordinates which values are less than the minimum value determined by the classifier
 
@@ -44,5 +44,5 @@ while (i_stage<=length(HaarCascades.stages))
     y=y(~check);%Remove the coordinates which values are less than the minimum value determined by the classifier
 
     StandardDeviation=StandardDeviation(~check); %Remove the standard deviations which coordinate values are smaller than the minimum value determined by the classifier
-    i_stage++; %Increment i_stage
+    i_stage = i_stage+1; %Increment i_stage
 end
