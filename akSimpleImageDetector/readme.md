@@ -1,4 +1,4 @@
-myFaceDetector.m is a very simple (and dumb) implementation of a face detector. It simply uses the Euclidean distance between the window under analysis and a template face image.
+myFaceDetector.m is a very simple (innacurate and inefficient) implementation of a face detector. It  uses the Euclidean distance between the window under analysis and a template face image.
 
 To run the evaluator code, execute: evaluateDetector.m
 
