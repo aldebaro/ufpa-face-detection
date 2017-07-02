@@ -54,7 +54,7 @@ while n<numTests %go over all tests
             %% Show correct decision
             disp(['n=' num2str(n) ' ==> correctOutput = ' correctOutput]);
             %% Call the detector
-            if 1
+            if 0
                 [decision,detectedRegion]=myFaceDetector(im);
             else %for debugging, use the correct decisions
                 decision=correctOutput;
@@ -70,6 +70,10 @@ while n<numTests %go over all tests
                 intersectionArea=rectint(correctRegion,detectedRegion);
                 normalizationFactor=max(newM^2,detectedRegion(3)*detectedRegion(4));
                 thisRegionAccuracy=intersectionArea/normalizationFactor;
+                %% Note that even when detectedRegion is equal to
+                %correctRegion, thisRegionAccuracy is not 0%, but 1%.
+                %This is not very good and could be improved by another
+                %definition of thisRegionAccuracy
                 disp(['thisRegionAccuracy=' num2str(thisRegionAccuracy) ' %'])
                 regionAccuracy=regionAccuracy+thisRegionAccuracy;
             end
