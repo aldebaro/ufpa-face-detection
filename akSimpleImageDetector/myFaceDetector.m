@@ -1,7 +1,7 @@
 function [decision,detectedRegion]=myFaceDetector(im)
 N=size(im,1); %should be 512
 M=86; %face images are 86 x 86 pixels
-threshold=3e3; %threshold found by tria-and-error
+threshold=3e3; %threshold found by trial-and-error
 %scales=[0.25 1 4]; %possible scales for image size (to speed up)
 scales=[0.25 0.5 1 2 4]; %possible scales for image size
 name='face5.png'; %face image that will work as face "pattern"
@@ -41,7 +41,9 @@ for s=1:length(scales) %go over all pre-defined scaling factors
     end
 end
 disp(['minMeanSquaredError = ' num2str(minMeanSquaredError)])
-%% indicate a face exists if the distance is below threshold
+%% The smaller the error, the better the match. So, a low error value
+%% is a very good indicator of a face.
+%% Indicate a face exists if the distance is below threshold
 if minMeanSquaredError < threshold;
     decision = 'has face';
     detectedRegion = bestRegion;

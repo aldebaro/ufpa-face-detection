@@ -3,11 +3,12 @@
 %one face in the image (i.e., zero or one face in each generated image)
 %pkg load image %in case using Octave
 tic %start counting ellapsed time
+shouldPauseAfterClassification = 1; %use 1 for pausing after each classification
 numTests=100; %total number of tests
 N=512; %landscape images are 512 x 512 pixels
 M=86; %face images are 86 x 86 pixels
-scales=[0.25 0.5 1 2 4]; %possible scales for image size
-%scales=[0.25 1 4]; %possible scales for image size (to speed up)
+%scales=[0.25 0.5 1 2 4]; %possible scales for image size
+scales=[0.25 1 4]; %possible scales for image size (to speed up)
 warning('Processing started...');
 numErrors = 0; %counter for error rate
 numImagesWithFaces=0; %counter for the "positive" examples
@@ -54,7 +55,7 @@ while n<numTests %go over all tests
             %% Show correct decision
             disp(['n=' num2str(n) ' ==> correctOutput = ' correctOutput]);
             %% Call the detector
-            if 0
+            if 1
                 [decision,detectedRegion]=myFaceDetector(im);
             else %for debugging, use the correct decisions
                 decision=correctOutput;
@@ -70,10 +71,8 @@ while n<numTests %go over all tests
                 intersectionArea=rectint(correctRegion,detectedRegion);
                 normalizationFactor=max(newM^2,detectedRegion(3)*detectedRegion(4));
                 thisRegionAccuracy=intersectionArea/normalizationFactor;
-                %% Note that even when detectedRegion is equal to
-                %correctRegion, thisRegionAccuracy is not 0%, but 1%.
-                %This is not very good and could be improved by another
-                %definition of thisRegionAccuracy
+                %% Note that when detectedRegion is equal to
+                %correctRegion, thisRegionAccuracy is equal to 1 (100%).
                 disp(['thisRegionAccuracy=' num2str(thisRegionAccuracy) ' %'])
                 regionAccuracy=regionAccuracy+thisRegionAccuracy;
             end
@@ -86,10 +85,14 @@ while n<numTests %go over all tests
             title(['n=' num2str(n) ': correct=' correctOutput ...
                 ' / decision=' decision]);
             drawnow
-            if strcmp(lastwarn,'Processing started...')~= 1
-                %trick to debug when a warning shows up
+            if shouldPauseAfterClassification == 1
+                disp('Paused. Press <ENTER> to continue...')
                 pause
             end
+            %%if strcmp(lastwarn,'Processing started...')~= 1
+            %%    %trick to debug when a warning shows up
+            %%    pause
+            %%end
             n=n+1; %update counter
             if n >= numTests
                 break; %need to break inner "for" loop
