@@ -2,8 +2,11 @@ function [decision,detectedRegion]=myFaceDetector(im)
 N=size(im,1); %should be 512
 M=86; %face images are 86 x 86 pixels
 threshold=3e3; %threshold found by trial-and-error
-%scales=[0.25 1 4]; %possible scales for image size (to speed up)
-scales=[0.25 0.5 1 2 4]; %possible scales for image size
+%Scales in which the detector will try to find faces. Note that
+%ideally this would match the scales used when generating the test
+%images.
+scales=[0.25 1 4]; %possible scales for image size (to speed up)
+%scales=[0.25 0.5 1 2 4]; %possible scales for image size
 name='face5.png'; %face image that will work as face "pattern"
 face=imread(name); %read file
 [n1,n2,n3]=size(face); %check dimensions

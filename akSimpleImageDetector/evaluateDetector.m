@@ -4,9 +4,10 @@
 %pkg load image %in case using Octave
 tic %start counting ellapsed time
 shouldPauseAfterClassification = 1; %use 1 for pausing after each classification
-numTests=100; %total number of tests
+numTests=10; %total number of tests
 N=512; %landscape images are 512 x 512 pixels
 M=86; %face images are 86 x 86 pixels
+%Scales in which the test face images will be generated:
 %scales=[0.25 0.5 1 2 4]; %possible scales for image size
 scales=[0.25 1 4]; %possible scales for image size (to speed up)
 warning('Processing started...');
