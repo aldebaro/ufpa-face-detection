@@ -1,20 +1,25 @@
 # Folders:
-The main folder has code starting with ufd_ and consists of UFPA's version of Viola&Jones's face detector.
+The main folder "ufpa-face-detection" has code starting with ufd_ and consists of UFPA's version of Viola&Jones's face detector.
 
 Other folders:
 - HaarCascades
+
 Default face detector already trained with OpenCV and saved as XML file. This classifier uses decision stumps as weak learners and does not have tilted (rotated) features
 
 - Images
+
 Some test images
 
 - ViolaJones_version0b
+
 	Original Dirk-Jan Kroon's code - also found at http://www.mathworks.com/matlabcentral/fileexchange/29437-viola-jones-object-detection
 
 - akSimpleImageDetector
+
 Simple (in fact stupid) detector to be used as baseline for UFPA's face detection project
 
 - opencv/sources/apps
+
 Some auxiliary files to be used as example for inserting user code and debugging with OpenCV.
 
 # ufpa-face-detection
@@ -38,6 +43,10 @@ Development strategy:
 [1] Robust Real-Time Face Detection, Paul Viola and Michael Jones, International Journal of Computer Vision 57(2), 137–154, 2004.
 
 [6] http://www.lienhart.de/Prof._Dr._Rainer_Lienhart/Source_Code_files/ICIP2002.pdf (this provides more details about how the Haar features can be calculated)
+
+[10] Improved Boosting Algorithms Using Confidence-rated Predictions. Schapire and Singer, 1999. - The default detector does not use the original Two-class Discrete AdaBoost Algorithm (that is described, e.g., at http://docs.opencv.org/2.4/modules/ml/doc/boosting.html?highlight=weak#id4 ) but it uses the "confidence-rated" version proposed by  Schapire and Singer in 1999.
+
+[11] More info about boosting: http://cbio.mskcc.org/~aarvey/boosting_papers.html
 
 <b>References about face detector using OpenCV:</b>
 
