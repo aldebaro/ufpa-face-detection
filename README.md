@@ -1,3 +1,22 @@
+# Folders:
+The main folder has code starting with ufd_ and consists of UFPA's version of Viola&Jones's face detector.
+
+Other folders:
+- HaarCascades
+Default face detector already trained with OpenCV and saved as XML file. This classifier uses decision stumps as weak learners and does not have tilted (rotated) features
+
+- Images
+Some test images
+
+- ViolaJones_version0b
+	Original Dirk-Jan Kroon's code - also found at http://www.mathworks.com/matlabcentral/fileexchange/29437-viola-jones-object-detection
+
+- akSimpleImageDetector
+Simple (in fact stupid) detector to be used as baseline for UFPA's face detection project
+
+- opencv/sources/apps
+Some auxiliary files to be used as example for inserting user code and debugging with OpenCV.
+
 # ufpa-face-detection
 
 Face detection for Octave / Matlab based on Viola &amp; Jones' algorithm [1].
