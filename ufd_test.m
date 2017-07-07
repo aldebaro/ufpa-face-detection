@@ -28,7 +28,7 @@ end
 
 %check if converted file already exixts, if so, conversion won't be done
 if (~exist([fileName, '.mat'])) 
-    ufd_convertXML(fileName)
+    ufd_convertXML(fileName) %convert XML file
 end
 
 %gets the name of the .mat created above from the opencv xml file
@@ -48,6 +48,7 @@ intImg = ufd_integralImage(img, defaultoptions);
 
 %calls the function that will call other detection functions
 %passes as parameter the integral image, classifier and options
+%the output are rectangles representing detected faces: [x, y, w, l]
 objects = ufd_multiScaleDetection(intImg, haarCascade, defaultoptions);
 
 %draws boxes around the detected objects

@@ -3,52 +3,56 @@ function obj=ufd_multiScaleDetection(integralImages, haarCascade, options)
 % calling ufd_detectSingleScale function on each scale.
 % (Based on code by D. Kroon)
 
-%tira tipo a "media" do padrão de altura e largura da imagem com as imagens estudadas no xml
-%como se fosse calcular a escala da imagem
+%calculate the possible scales
 ScaleWidth = integralImages.width/haarCascade.size(1);
 ScaleHeight = integralImages.height/haarCascade.size(2);
-if(ScaleHeight < ScaleWidth ),
+%make sure StartScale is the minimum value between ScaleHeight and ScaleWidth
+if(ScaleHeight < ScaleWidth )     
     StartScale =  ScaleHeight;
-else
-    % decide usar a menor escala como inicial
+else    
     StartScale = ScaleWidth;
 end
 
-%objects é o array para armazenar os quadrados que envolvem as faces quando encontradas e o n é o numero de faces detectadas
-obj=zeros(100,4); n=0;
+obj=zeros(100,4); %obj is an array to store the squares corresponding to detected faces
+n=0; %number of detected faces up to now
 
-%o número de interações possíveis, tipo quantos escalas são possíveis
+%iterations number based on the number os scales that will be explored
 itt=ceil(log(1/StartScale)/log(options.ScaleUpdate));
 
+%loop goes from largest to smallest scale
 for i=1:itt                                           %vai passar de escala por escala pra tentar detectar as faces
     Scale =StartScale*options.ScaleUpdate^(i-1);        %vai vendo primeiro as menores escalas depois vai aumentando
         
-    %~~calcula a nova escala para calcular em uma nova dimensao de imagem
-    w = floor(haarCascade.size(1)*Scale);
-    h = floor(haarCascade.size(2)*Scale);
+    %based on the given scale, find the width and length of the Haar feature
+    w = floor(haarCascade.size(1)*Scale); %for example, haarCascade.size(1) = 20 pixels
+    h = floor(haarCascade.size(2)*Scale); %and haarCascade.size(2) = 20 pixels
     
-    step = floor(max( Scale, 2 ));                           %espaço que o quadrado da cara vai ter
-    
-    %~~usa uma matematica ai que cria os vetores que formam os quadrados
+    %shift in pixels according to the scale, and not less than 2 pixels
+    step = floor(max( Scale, 2 ));                               
+    %create a grid with all possible analysis windows given the image size
+    %and the chosen "step"
     [x,y]=ndgrid(0:step:(integralImages.width-w-1),0:step:(integralImages.height-h-1)); x=x(:); y=y(:);
     
-    %se as coordenadas estiverem vazias, vai procurar já na próxima escala
-    if(isempty(x)), continue; end
+    if(isempty(x))
+        continue; %if empty, skip this scale
+    end
     
-    [x,y] = ufd_detectSingleScale( x, y, Scale, integralImages, w, h, haarCascade);  %calcula onde vai ficar o quadrado na imagem
+    %input x,y are the starting positions of the analysis window
+    %input x,y are the rectangles top-left corners of the detected faces
+    %important: the function below will be called for each scale
+    [x,y] = ufd_detectSingleScale( x, y, Scale, integralImages, w, h, haarCascade);
     
-    for k=1:length(x);                        %no caso viria para ca se as coordenadas de x forem válidas para o rosto em uma imagem
-        n=n+1; obj(n,:)=[x(k) y(k) w h];    %aumenta o n, avisando que tem um rosto nessa escala
-    end                                       %object eh para colocar o quadrado nas coordenadas dos vetores encontrados
-
-    %mostra informacao basica
+    for k=1:length(x) %go over all detected faces
+        n=n+1; %update number of detected faces
+        obj(n,:)=[x(k) y(k) w h]; %create the rectangle to show the detected face
+    end
+    
     if(options.Verbose)
-        %ele mostra como string a escala e o numero de objetos detectados
+        %if verbose, show temporary information
         disp(['Scale : ' num2str(Scale) ' objects detected : ' num2str(n)])
     end
     
 end
 
-obj=obj(1:n,:);
-
+obj=obj(1:n,:); %discard rows that are not used in obj
 obj=obj*integralImages.Ratio;        %teoricamente redimensiona os quadrados de acordo com a imagem
