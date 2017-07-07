@@ -50,13 +50,20 @@ i_stage = 1; %Control variable for loop into classifier stages
 while (i_stage<=length(HaarCascades.stages))
     stage = HaarCascades.stages(i_stage); % stage receives the classifier class regarding the index i_stage
     Trees=stage.trees; % Access the classifiers tree class of the element 
+    %recall that the evaluation is done simultaneously for all candidate
+    %windows, such that StageSummation needs to store the stage output
+    %for all candidate windows (some will be detected as "faces" and
+    %others not). For example, if there are 45 candidate windows, the
+    %size of StageSummation is 45 x 1.
     StageSummation = zeros(size(x)); % Create a matrix of zeros with length equal to the x (size should perhaps be (x, y))
 
     %Loop through all weak classifiers (for this stage, also called "tree")
     %note that all window candidates are being evaluated simultaneously
     for i_tree=1:length(Trees) %i_tree will receive each accessed tree index
-        Tree = Trees(i_tree).value; %Tree receive the value of the tree specified by the i_tree
-        % Executing the classifier
+        %the field "value" is an array with 21 elements that describes
+        %a specific weak learner
+        Tree = Trees(i_tree).value; %Tree receive the value of the tree specified by i_tree
+        % Executing this specific weak-learner classifier
         TreeSum=ufd_treeDetect(zeros(size(x)),Tree,Scale,x,y,IntegralImage.ii,StandardDeviation,InverseArea); %TreeSum stores the execution of the classifier
         StageSummation = StageSummation+TreeSum; % Sum of two matrices
     end

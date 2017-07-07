@@ -27,12 +27,15 @@ function Tree_sum=ufd_treeDetect(Node,Tree,Scale,x,y,integralImage,stddev,invers
 %      not used?
 %          0         0         0
 
-% Get the current haar-classifiers
-Leaf= Tree(Node+1,:); %each Leaf row is the given "classifier"
+% Get the current haar weak-learn classifiers
+Leaf= Tree(Node+1,:); %each Leaf row is the given "classifier", for
+%example: Tree is a vector with 21 elements describing the classifier,
+%and there are 45 candidate windows, then Leaf has size 45 x 21, with
+%the weak-learner classifier repeated 45 times
 
-% Calculate the haar-feature response
-Rectangle_sum = zeros(size(x));
-for i_Rectangle = 1:3  %maybe 1:2 ???
+% Calculate the haar-feature response for all candidate windows
+Rectangle_sum = zeros(size(x)); %allocate space for all windows
+for i_Rectangle = 1:3  %AK maybe 1:2 given that the third is zero ???
     %AK: I see only 2 rectangles in the classifier (from XML file)
     %and the third "rectangle" is all zeros, and leads to r_sum=0
     Rectangle = Leaf(:,(1:5)+i_Rectangle*5);
@@ -41,10 +44,12 @@ for i_Rectangle = 1:3  %maybe 1:2 ???
     RectWidth = floor(Rectangle(:,3)*Scale);
     RectHeight = floor(Rectangle(:,4)*Scale);
     RectWeight = Rectangle(:,5);
+    %get the feature value using the integral image
     r_sum = ufd_sumRect(integralImage,RectX,RectY,RectWidth,RectHeight).*RectWeight;
-    Rectangle_sum = Rectangle_sum + r_sum;
+    Rectangle_sum = Rectangle_sum + r_sum; %accumulate to obtain the value
 end
-Rectangle_sum = Rectangle_sum * inverseArea;
+Rectangle_sum = Rectangle_sum * inverseArea; %normalize by area in order
+%to better compare rectangles with distinct sizes / areas
 
 % Get the values of the current haar-classifiers
 LeafTreshold=Leaf(:,1);
@@ -69,5 +74,9 @@ Tree_sum(~check)=LeftValue(~check);
 % a value, but it is connected to another weak-classifier
 check=Node>-1;
 if(any(check))
+    %recursively go over the weak classifiers. This allows a more
+    %flexible weak classifier, but here we are using simple
+    %decision stumps, and the code below will not execute
+    warning('AK: Be aware that a more sophisticated classifier is being used');
     Tree_sum(check)=ufd_treeDetect(Node(check),Tree,Scale,x(check),y(check),integralImage,stddev(check),inverseArea);
 end
