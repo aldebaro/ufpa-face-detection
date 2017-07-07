@@ -32,6 +32,8 @@ Convention: all files (scripts and functions) start with the prefix ufd_ (UFPA f
 
 The face detector should have training and a test stages. The main scripts for training and testing are: ufd_train and ufd_test, respectively. Currently, only ufd_test is implemented.
 
+The default detector assumes a frontal face and was created by Rainer Lienhart. It is  stump-based (the weak classifiers are decision stumps) with a base resolution of 20x20 pixels, trained with Gentle Adaboost. See Zhu et al, Real-time face detection using Gentle AdaBoost algorithm and nesting cascade structure, 2012 (http://ieeexplore.ieee.org/document/6473448/)
+    
 Development strategy:
 
 - We will use the training stage of OpenCV and import the classifier in [4] (more than 30k lines). For that, we used code that imports the XML file into Octave / Matlab. Note that Mathworks has support to OpenCV [5] but we will *not* use it for the sake of compatibility with Octave. This strategy will force us to use the same data structures as OpenCV but will allow to debug our code using OpenCV as a reference.
@@ -44,7 +46,8 @@ Development strategy:
 
 [6] http://www.lienhart.de/Prof._Dr._Rainer_Lienhart/Source_Code_files/ICIP2002.pdf (this provides more details about how the Haar features can be calculated)
 
-[10] Improved Boosting Algorithms Using Confidence-rated Predictions. Schapire and Singer, 1999. - The default detector does not use the original Two-class Discrete AdaBoost Algorithm (that is described, e.g., at http://docs.opencv.org/2.4/modules/ml/doc/boosting.html?highlight=weak#id4 ) but it uses the "confidence-rated" version proposed by  Schapire and Singer in 1999.
+
+[10] Improved Boosting Algorithms Using Confidence-rated Predictions. Schapire and Singer, 1999. - The default detector does not use the original Two-class Discrete AdaBoost Algorithm (that is described, e.g., at http://docs.opencv.org/2.4/modules/ml/doc/boosting.html?highlight=weak#id4 )
 
 [11] More info about boosting: http://cbio.mskcc.org/~aarvey/boosting_papers.html
 
