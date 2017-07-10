@@ -10,7 +10,7 @@ function integralImage=ufd_integralImage(X, Options)
 
     % upcasting the matrix representing the image to double
     % to make sure we don't lose data 
-    X = im2double(X);
+    X = im2double(X); %it will scale the data if not double (e.g. uint8)
 
     % added the resize option
     if(Options.Resize)
@@ -59,7 +59,7 @@ function integralImage=ufd_integralImage(X, Options)
     I = [zeros(1, size(I,2)); I];
     I2 = [zeros(1, size(I2,2)); I2];
 
-    % If we where to use the function padarray from the image package
+    % If we want to use the function padarray from the image package
     % I = padarray(I, [1 1], 'pre')
     
     % returns a struct because every other function expects one

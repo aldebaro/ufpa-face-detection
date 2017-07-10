@@ -2,6 +2,7 @@ function obj=ufd_multiScaleDetection(integralImages, haarCascade, options)
 % This function performs object detection in multiple scales, 
 % calling ufd_detectSingleScale function on each scale.
 % (Based on code by D. Kroon)
+global debugme;
 
 %calculate the possible scales
 ScaleWidth = integralImages.width/haarCascade.size(1);
@@ -19,9 +20,16 @@ n=0; %number of detected faces up to now
 %iterations number based on the number os scales that will be explored
 itt=ceil(log(1/StartScale)/log(options.ScaleUpdate));
 
+if debugme==1 && StartScale==1 && itt==0 %AK
+    itt=1;
+end
+if itt < 1
+    error('No scales were found. Choose other options!');
+end
+
 %loop goes from largest to smallest scale
-for i=1:itt                                           %vai passar de escala por escala pra tentar detectar as faces
-    Scale =StartScale*options.ScaleUpdate^(i-1);        %vai vendo primeiro as menores escalas depois vai aumentando
+for i=1:itt                                           
+    Scale =StartScale*options.ScaleUpdate^(i-1); %for i=1, first scale is StartScale*options
         
     %based on the given scale, find the width and length of the Haar feature
     w = floor(haarCascade.size(1)*Scale); %for example, haarCascade.size(1) = 20 pixels
@@ -31,7 +39,16 @@ for i=1:itt                                           %vai passar de escala por 
     step = floor(max( Scale, 2 ));                               
     %create a grid with all possible analysis windows given the image size
     %and the chosen "step"
-    [x,y]=ndgrid(0:step:(integralImages.width-w-1),0:step:(integralImages.height-h-1)); x=x(:); y=y(:);
+    if 1
+        %original code
+        [x,y]=ndgrid(0:step:(integralImages.width-w-1),0:step:(integralImages.height-h-1));
+        x=x(:); %make it a column vector
+        y=y(:); %make it a column vector
+    else
+        %AK: trying to understand, but it does not work as above
+        [x,y]=ndgrid(0:step:(integralImages.height-h-1),0:step:(integralImages.width-w-1)); x=x(:); y=y(:);            
+        %x=0, y=0
+    end
     
     if(isempty(x))
         continue; %if empty, skip this scale
@@ -49,7 +66,7 @@ for i=1:itt                                           %vai passar de escala por 
     
     if(options.Verbose)
         %if verbose, show temporary information
-        disp(['Scale : ' num2str(Scale) ' objects detected : ' num2str(n)])
+        disp(['In scale: ' num2str(Scale) ', number of detected faces: ' num2str(n)])
     end
     
 end

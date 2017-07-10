@@ -8,8 +8,11 @@
 %if running on Octave, execute (uncomment) the command below
 %pkg load image %because you need the image package ("toolbox")
 
+global debugme; %use 1 to debug with very small "image"
+debugme=0;
+
 %starting the script, we'll need the path  for the source image
-%user may need to adapt path to curret OS 
+%user may need to adapt path to curret OS
 imageFileName = ['Images', filesep(), '1.jpg'];
 %imageFileName = ['Images', filesep(), '2.jpg'];
 %imageFileName = ['Images', filesep(), '3.jpg'];
@@ -20,14 +23,14 @@ fileName = ['HaarCascades', filesep(), 'haarcascade_frontalface_alt.xml'];
 %in Dr. Kroon's code the xml was removed, but since understanding
 %its conversion to .MAT is one of the points of the project, I'm going to include it
 %name treatment for the .xml file
-j=find(fileName=='.'); 
+j=find(fileName=='.');
 if(~isempty(j))
     j=j(end);
-    fileName=fileName(1:j-1); 
+    fileName=fileName(1:j-1);
 end
 
 %check if converted file already exixts, if so, conversion won't be done
-if (~exist([fileName, '.mat'])) 
+if (~exist([fileName, '.mat']))
     ufd_convertXML(fileName) %convert XML file
 end
 
@@ -42,6 +45,13 @@ img = imread(imageFileName);
 
 % and some options
 defaultoptions=struct('ScaleUpdate',1/1.2,'Resize',true,'Verbose',true);
+
+%AK: use for debugging
+if debugme==1
+    img=reshape(1:400,20,20); %simple "image"
+    %do not resize:
+    defaultoptions=struct('ScaleUpdate',1/4,'Resize',false,'Verbose',true);
+end
 
 % gets its integral image
 intImg = ufd_integralImage(img, defaultoptions);
