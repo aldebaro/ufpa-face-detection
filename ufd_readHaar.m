@@ -1,12 +1,12 @@
 function cascade=ufd_readHaar(haarFilename)
-% This function reads an MATLAB structure containing a Haar cascade classifier 
-% data.
+% This function reads a MAT file with a MATLAB structure 
+% containing a Haar cascade classifier data.
+% This code assumes the "old" XML format. OpenCV has now a newer
+% format. See youtube videolecture about it.
 % Input: MATLAB filename
 % Output: Structure containing the classifier
 % (Based on code by D. Kroon)
-%the original function by kroon is barely documented, I'm gonna make more coments as I study it more deeply
-%done the adaptation far as i could notice any differences, when running redo it(maybe)
-load(haarFilename);
+load(haarFilename); %haarFilename is a MAT file
 f=fieldnames(opencv_storage);
 cascade=opencv_storage.(f{1});
 

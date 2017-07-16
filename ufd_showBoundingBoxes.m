@@ -15,6 +15,8 @@ if(~isempty(Objects));
     for n=1:size(Objects,1)
         x1=Objects(n,1); y1=Objects(n,2);
         x2=x1+Objects(n,3); y2=y1+Objects(n,4);
+        %note that x1 and x2 indicate the abscissa and
+        %y1 and y2 the ordinate, starting from top to bottom
         plot([x1 x1 x2 x2 x1],[y1 y2 y2 y1 y1]);
     end
 end

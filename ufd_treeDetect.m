@@ -2,7 +2,7 @@ function weakClassifierOutput=ufd_treeDetect(numberOfCurrentCandidateWindows, ..
     weakClassifer,Scale,x,y,integralImage,stddev,inverseArea)
 % This function performs object detection for one weak learner.
 % (Based on code by D. Kroon)
-%AK: Note that the default "tree" classifier trained by OpenCV
+%Note that the default "tree" classifier trained by OpenCV
 %is organized in the XML file as the one below (assuming the old
 %format for the XML):
 %          <!-- tree 0 -->
@@ -26,7 +26,7 @@ function weakClassifierOutput=ufd_treeDetect(numberOfCurrentCandidateWindows, ..
 %  rectangle (x,y,w,h,weight)
 %    3.0000 7.0000   14.0000    4.0000   -1.0000
 %    3.0000 9.0000   14.0000    2.0000    2.0000         
-%  not used:
+%  third rectangle (often not used, only zeros) may exist:
 %  0         0         0        0         0         0
 
 % Repeat the current Haar weak-learn classifier by the numberOfCurrentCandidateWindows
@@ -77,10 +77,10 @@ weakClassifierOutput(~check)=LeftValue(~check);
 %% Code below is not necessary for default XML face detector
 %the logic regarding nodes below gives support to trees as weak learners, but the
 %default detector uses single stumps, so their value is -1 for this
-%detector. AK: I am then run the lines below only if a leaf is different
+%detector. I am then going to run the lines below only if a leaf is different
 %from -1
 if repeatedWeakClassifiers(1,4)~=-1 ||  repeatedWeakClassifiers(1,5)~=-1
-    warning('AK: Be aware that a tree classifier more sophisticated than a decision stump is being used');
+    warning('Be aware that a tree classifier more sophisticated than a decision stump is being used');
     Node=zeros(size(x));    
     LeftNode = repeatedWeakClassifiers(:,4);
     RightNode =repeatedWeakClassifiers(:,5);
