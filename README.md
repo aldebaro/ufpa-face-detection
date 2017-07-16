@@ -51,6 +51,8 @@ Development strategy:
 
 [11] More info about boosting: http://cbio.mskcc.org/~aarvey/boosting_papers.html
 
+http://rednoah.users.sourceforge.net/facedet/Face%20Detection%20Report.pdf - it is not the original reference, but discusses the normalization using the variance.
+
 <b>References about face detector using OpenCV:</b>
 
 - How to build OpenCV on Windows: http://www.anlak.com/2013/02/build-debug-opencv-vs2010.html
