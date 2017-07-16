@@ -10,9 +10,10 @@ InverseArea = 1/(w*h);
 %Calculated the average in relation sum of rectangles(utilizing integral image) matrix and matrix area
 average = ufd_sumRect(IntegralImage.ii,x,y,w,h)*InverseArea;
 
-%AK: I think this variance was added to deal with varying illumination
+%The variance was added to deal with varying illumination
 %conditions, and was not part of the original Viola & Jones algorithms
-%It would be interesting to specify this reference here.
+%It is discussed at
+%http://rednoah.users.sourceforge.net/facedet/Face%20Detection%20Report.pdf
 
 %Calculation of variance in each sub-window of the classifiers
 %Note that for random variable X, we have E[X^2]=variance + mean^2,
